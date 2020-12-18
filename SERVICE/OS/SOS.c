@@ -92,24 +92,31 @@ void SOS_SortTasks(void)
 	uint8 u8_secondLoopCounter;
 	
 	str_SOS_info_t str_Temp;
-	
+	uint8 u8_minIndex;
 
 	
 	for (u8_firstLoopCounter=ZEROVALUE ; u8_firstLoopCounter < u8_TaskCounter ; u8_firstLoopCounter++)
 	{
+		u8_minIndex = u8_firstLoopCounter;
 		for (u8_secondLoopCounter = u8_firstLoopCounter + 1 ; u8_secondLoopCounter < u8_TaskCounter;\
 		u8_secondLoopCounter++)
 		{
-			if (gas_SOS_list[u8_firstLoopCounter].u8_Priority > \
+			if (gas_SOS_list[u8_minIndex].u8_Priority > \
 			gas_SOS_list[u8_secondLoopCounter].u8_Priority)
 			{
-				str_Temp=gas_SOS_list[u8_firstLoopCounter];
-				gas_SOS_list[u8_firstLoopCounter]=gas_SOS_list[u8_secondLoopCounter];
-				gas_SOS_list[u8_secondLoopCounter]=str_Temp;
+				u8_minIndex = u8_secondLoopCounter;
 			}
+
 			else
 			{
 			}
+		}
+
+		if (u8_minIndex != u8_firstLoopCounter)
+		{
+			str_Temp=gas_SOS_list[u8_minIndex];
+			gas_SOS_list[u8_minIndex]=gas_SOS_list[u8_secondLoopCounter];
+			gas_SOS_list[u8_secondLoopCounter]=str_Temp;
 		}
 	}
 	
